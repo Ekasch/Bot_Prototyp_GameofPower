@@ -42,7 +42,7 @@ koordinaten =  [
    (59.96,-77.47),
    (58.70,-78.61),
    (57.88,-77.02),
-   dfdsf
+   
 ]
 
 
@@ -116,12 +116,7 @@ while True:
     Geld = Geld + Export-Import+Zölle*Import-Zölle1*Export
     Max_Bevölkerung= Fläche * Statdvortschritt
     
-    Distance_wilderness =0
-    a = ausbreiten
-    for i,punkt in enumerate(koordinaten):
-        print(f"Punkt{i+0.1}:({punkt["x"]},{punkt["y"]})")
-
-    if a == ausbreiten:
+    
        
 
 
@@ -134,8 +129,6 @@ while True:
             Geld = Geld - Geld*0.1
         Medicin = 5+((MInvestizion**0.5)**0.5)/20
 
-        if Distance_wilderness == 0:
-            ausbreiten
              
             
     
