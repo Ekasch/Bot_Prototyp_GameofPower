@@ -166,7 +166,7 @@ while True:
                  print("Route-Status:", [route.get_position_at_index(i) for i in [0,5,10,-1]])
                  print(f"🎖️ Erobert: {route.gewonnenes_land:.0f}km² | 💔 Verloren: {route.erteiltes_land:.0f}km²")
                  
-                 Richtung_angriff int(input(Welche richtung))
+                 Richtung_angriff=int(input("Welche Richtung"))
                  action = input("Aktion (v=vorrücken/r=zurückziehen/a=angreifen/q=zurückziehen): ")
                  
 
