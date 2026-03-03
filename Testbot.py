@@ -1,4 +1,3 @@
-Speziel = 0
 MInvestizion = 0
 IInvestition = 0
 BInvestition = 0
@@ -132,13 +131,13 @@ while True:
     Energieverbrauch = 1.200 *Bevölkerung
     Nahrungskonsum = 1000 * Bevölkerung
 
-    Export = Bevölkerung/Industrie**0.5 +Speziel
+    Export = Bevölkerung/Industrie**0.5 
     Import = Bevölkerung / Industrie**.5 + (Bevölkerung/2)/Sozial**0.5 +Kauf
     Geld = Geld + Export-Import+Zölle*Import-Zölle1*Export
     Max_Bevölkerung= Fläche * Statdvortschritt
     
-    Soldaten_Trupp1 =  Soldaten 
-    
+    Soldaten_Trupp =  Soldaten 
+    Soldaten_Trupp_position = 
 
 
 
@@ -166,10 +165,10 @@ while True:
                  print("Route-Status:", [route.get_position_at_index(i) for i in [0,5,10,-1]])
                  print(f"🎖️ Erobert: {route.gewonnenes_land:.0f}km² | 💔 Verloren: {route.erteiltes_land:.0f}km²")
                  
-                 Richtung_angriff=int(input("Welche Richtung"))
+                 idx=int(input("Welche Richtung"))
                  action = input("Aktion (v=vorrücken/r=zurückziehen/a=angreifen/q=zurückziehen): ")
                  
-
+                 if Soldaten_Trupp_position == idx
 
 
 
@@ -179,7 +178,7 @@ while True:
                     break
             
                  elif action == 'v':  # VORRÜCKEN (Land gewinnen)
-                    idx =(input("Index: "))
+                    
                     dx = float(input("dx: "))
                     dy = float(input("dy: "))
                     route.set_position_at_index(idx, (route.koordinaten[idx][0]+dx, 
@@ -187,16 +186,15 @@ while True:
                     Fläche += strecke * 100  # Gesamtfläche erhöhen!
                     Max_Bevölkerung = Fläche * Statdvortschritt
 
-                 elif action == 'r':  # ZURÜCKZIEHEN
-                    route.verliere_land_nördlich(0.05)
-                    Fläche -= 5
+                 elif action == "r":
+                     
             
                  elif action == 'a':  # VOLLER ANGRIFF
                     erfolg = Soldaten > 500  # Erfolg basierend auf Truppen
                     if erfolg:
                         route.erobere_land_südlich(0.15)
                         Fläche += 15
-                        Speziel += 10  # Bonus-Technologie
+                        
                         print("🎉 SIEG! +15km² +10 Speziel!")
                     else:
                      print("💥 SCHLACHTNiederlage!")
