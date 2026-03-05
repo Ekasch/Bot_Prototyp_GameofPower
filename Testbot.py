@@ -1,3 +1,4 @@
+import math
 MInvestizion = 0
 IInvestition = 0
 BInvestition = 0
@@ -29,7 +30,14 @@ Kanada_koordinaten =[
     (49.124, -107.069), (49.115, -107.065), (49.108, -107.059)
 ]
 
-
+def haversine(lat1, lon1, lat2, lon2):
+      lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
+      dlat, dlon = lat2 - lat1, lon2 - lon1
+      a = (math.sin(dlat/2)**2 + 
+      math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2)
+      c = 2 * math.asin(math.sqrt(a))
+      r = 6371  # Erdradius in km
+      return c * r
 
 
 
@@ -98,7 +106,7 @@ Militär = Soldaten
 
 Energieverbrauch = 1.200 *Bevölkerung
 Nahrungskonsum = 1.5 * Bevölkerung
-Export = Bevölkerung/Industrie**0.5 +Speziel
+Export = Bevölkerung/Industrie**0.5 
 Import = Bevölkerung / Industrie**.5 + (Bevölkerung/2)/Sozial**0.5 +Kauf
 
 Geld = 2_000_000_000
@@ -137,8 +145,8 @@ while True:
     Max_Bevölkerung= Fläche * Statdvortschritt
     
     Soldaten_Trupp =  Soldaten 
-    Soldaten_Trupp_position = 
-
+    Soldaten_Trupp_position = (1,1)
+    Soldaten_Trupp_geschwindigkeit = 3
 
 
     if Aktionen > 0:
@@ -163,39 +171,61 @@ while True:
                  kampf_runde += 1
                  print(f"\n--- KAMPF RUNDE {kampf_runde} ---")
                  print("Route-Status:", [route.get_position_at_index(i) for i in [0,5,10,-1]])
-                 print(f"🎖️ Erobert: {route.gewonnenes_land:.0f}km² | 💔 Verloren: {route.erteiltes_land:.0f}km²")
+                 
                  
                  idx=int(input("Welche Richtung"))
                  action = input("Aktion (v=vorrücken/r=zurückziehen/a=angreifen/q=zurückziehen): ")
-                 
-                 if Soldaten_Trupp_position == idx
+                 Ziel1 = float(input("Wohin x: "))
+                 Ziel2 = float(input("Wohin y:"))
+                 if Soldaten_Trupp_position == idx:
+                     Soldaten_Trupp_position = idx 
+                 elif Soldaten_Trupp_position != idx:
+                     def haversine(lat1, lon1, lat2, lon2):
+                        lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
+                        dlat, dlon = lat2 - lat1, lon2 - lon1
+                        a = (math.sin(dlat/2)**2 + 
+                        math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2)
+                        c = 2 * math.asin(math.sqrt(a))
+                        r = 6371  # Erdradius in km
+                        return c * r
 
+                     
+                     start = route.get_position_at_index(idx)  # (lat, lon)
+                     Ziel = (49.0, -107.0)       # Beispielziel
 
-
+                     dist = haversine(
+                     start[0], start[1],     # lat1, lon1
+                     Ziel[0], Ziel[1]        # lat2, lon2
+                        )
+                     print("Distanz in km:", dist)
+                     
+                    
+                        
+            
 
                  if action == 'q':
                     print("🛡️ Rückzug!")
                     break
             
-                 elif action == 'v':  # VORRÜCKEN (Land gewinnen)
+              #   elif action == 'v':  # VORRÜCKEN (Land gewinnen)
                     
-                    dx = float(input("dx: "))
-                    dy = float(input("dy: "))
-                    route.set_position_at_index(idx, (route.koordinaten[idx][0]+dx, 
-                                          route.koordinaten[idx][1]+dy))
-                    Fläche += strecke * 100  # Gesamtfläche erhöhen!
-                    Max_Bevölkerung = Fläche * Statdvortschritt
+                   # dx = float(input("dx: "))
+                   # dy = float(input("dy: "))
+                  #  route.set_position_at_index(idx, (route.koordinaten[idx][0]+dx, 
+                  #                       route.koordinaten[idx][1]+dy))
+                   # Fläche += strecke * 100  # Gesamtfläche erhöhen!
+                  #  Max_Bevölkerung = Fläche * Statdvortschritt
 
-                 elif action == "r":
+                 
                      
             
                  elif action == 'a':  # VOLLER ANGRIFF
                     erfolg = Soldaten > 500  # Erfolg basierend auf Truppen
                     if erfolg:
-                        route.erobere_land_südlich(0.15)
+                        
                         Fläche += 15
                         
-                        print("🎉 SIEG! +15km² +10 Speziel!")
+                        
                     else:
                      print("💥 SCHLACHTNiederlage!")
                      Soldaten *= 0.8  # 20% Verluste
@@ -219,9 +249,6 @@ while True:
                 #    dy = float(input("dy: "))
                   #  route.set_position_at_index(idx, (route.koordinaten[idx][0]+dx, 
                      #                  route.koordinaten[idx][1]+dy))
-
-
-
 
 
 
