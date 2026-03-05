@@ -31,13 +31,13 @@ Kanada_koordinaten =[
 ]
 
 def haversine(lat1, lon1, lat2, lon2):
-      lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
-      dlat, dlon = lat2 - lat1, lon2 - lon1
-      a = (math.sin(dlat/2)**2 + 
-      math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2)
-      c = 2 * math.asin(math.sqrt(a))
-      r = 6371  # Erdradius in km
-      return c * r
+                        lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
+                        dlat, dlon = lat2 - lat1, lon2 - lon1
+                        a = (math.sin(dlat/2)**2 + 
+                        math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2)
+                        c = 2 * math.asin(math.sqrt(a))
+                        r = 6371  # Erdradius in km
+                        return c * r
 
 
 
@@ -75,7 +75,7 @@ route = Kanada(Kanada_koordinaten)
        #route.change_selected(indices, dx, dy)
 
 
-
+neue_border =-999
 Kauf = 0
 Zölle = 0
 Zölle1 = 0
@@ -146,7 +146,7 @@ while True:
     
     Soldaten_Trupp =  Soldaten 
     Soldaten_Trupp_position = (1,1)
-    Soldaten_Trupp_geschwindigkeit = 3
+    Soldaten_Trupp_geschwindigkeit = 200
 
 
     if Aktionen > 0:
@@ -169,7 +169,7 @@ while True:
              kampf_runde = 0
              while True:
                  kampf_runde += 1
-                 print(f"\n--- KAMPF RUNDE {kampf_runde} ---")
+                 print(f"\n--- Woche {kampf_runde} ---")
                  print("Route-Status:", [route.get_position_at_index(i) for i in [0,5,10,-1]])
                  
                  
@@ -180,29 +180,31 @@ while True:
                  if Soldaten_Trupp_position == idx:
                      Soldaten_Trupp_position = idx 
                  elif Soldaten_Trupp_position != idx:
-                     def haversine(lat1, lon1, lat2, lon2):
-                        lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
-                        dlat, dlon = lat2 - lat1, lon2 - lon1
-                        a = (math.sin(dlat/2)**2 + 
-                        math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2)
-                        c = 2 * math.asin(math.sqrt(a))
-                        r = 6371  # Erdradius in km
-                        return c * r
-
-                     
+                                         
                      start = route.get_position_at_index(idx)  # (lat, lon)
-                     Ziel = (49.0, -107.0)       # Beispielziel
+                        
 
                      dist = haversine(
                      start[0], start[1],     # lat1, lon1
-                     Ziel[0], Ziel[1]        # lat2, lon2
+                     Ziel1, Ziel2        # lat2, lon2
                         )
                      print("Distanz in km:", dist)
-                     
-                    
-                        
-            
-
+                     if dist<Soldaten_Trupp_geschwindigkeit:
+                         Soldaten_Trupp_position = (Ziel1, Ziel2)
+                     elif dist>Soldaten_Trupp_geschwindigkeit:
+                         dist -=Soldaten_Trupp_geschwindigkeit                  
+                     jklsad = input("zufrieden mit der Border? ja/nein")
+                     if jklsad == "ja":
+                         if neue_border == -999:
+                            neue_border = idx
+                         else :
+                             neue_border = neue_border                           #PROBLEM KANN NUR VON BORDER AUSGEHEN
+                     elif jklsad == "nein":
+                          idx = Soldaten_Trupp_position
+                          
+                 print ("idx",idx)
+                 print (Soldaten_Trupp_position)
+                 print (dist)
                  if action == 'q':
                     print("🛡️ Rückzug!")
                     break
